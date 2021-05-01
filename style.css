@@ -1,0 +1,53 @@
+.CodeMirror {
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: auto;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+
+.editor-container{
+  border: 2px solid black;
+}
+
+.editor-container .editor-head{
+  width: 100%;
+  height: 50px;
+}
+
+.run-btn{
+  position:fixed;
+  right:1%;
+  bottom:10px;
+  z-index: 99;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  color: #31DE84;
+}
+
+.run-btn:hover{
+  transform: scale(1.2);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+.logo{
+  position: fixed;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.logo-1{
+  color: #31DE84 !important;
+  font-size: 24px;
+  font-weight: 900;
+  padding: 1px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+@media screen and (max-width: 670px){
+  .run-btn{
+    font-size: 1rem;
+    right: 2%;
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/addon/edit/closebrackets.js"></script>
+    <script src="codemirror/addon/hint/show-hint.js"></script>
+    <script src="codemirror/addon/hint/css-hint.js"></script>
+    <script src="codemirror/addon/hint/javascript-hint.js"></script>
+    <script src="codemirror/addon/edit/closetag.js"></script>
+    <script src="codemirror/addon/lint/lint.js"></script>
+    <script src="codemirror/addon/lint/css-lint.js"></script>
+    <script src="codemirror/addon/fold/brace-fold.js"></script>
+    <script src="codemirror/addon/fold/foldcode.js"></script>
+    <script src="codemirror/addon/fold/foldgutter.js"></script>
+    <script src="codemirror/addon/fold/indent-fold.js"></script>
+    <script src="codemirror/addon/fold/markdown-fold.js"></script>
+    <script src="codemirror/mode/css/css.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/python/python.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/3436d9e9c1.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/addon/hint/show-hint.css">
+    <link rel="stylesheet" href="codemirror/theme/dracula.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Snowy's Editor</title>
+</head>
+
+<body onresize="myFunction()" onload="loadEditor()">
+<div class="editor-container">
+    <!-- Default dropleft button -->
+    <div class="editor-head">
+        <div class="logo">
+            <code class="logo-1">Learn to code Minecraft</code>
+        </div>
+        <div class="btn-group dropleft" style="float: right;margin-top: 5px;">
+            <button type="button" style="z-index: 10; color: #4a4a4a !important;" class="btn bg-white dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Languages
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" onclick="changeLanguage('javascript')">Java Script (in use)</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onclick="changeLanguage('python')">Python</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Blocks</a>
+            </div>
+        </div>
+    </div>
+    <textarea class="CodeMirror" id="editor">// Demo code (the actual new parser character stream implementation)
+
+function StringStream(string) {
+  this.pos = 0;
+  this.string = string;
+}
+
+StringStream.prototype = {
+  done: function() {return this.pos >= this.string.length;},
+  peek: function() {return this.string.charAt(this.pos);},
+  next: function() {
+    if (this.pos < this.string.length)
+      return this.string.charAt(this.pos++);
+  },
+  eat: function(match) {
+    var ch = this.string.charAt(this.pos);
+    if (typeof match == "string") var ok = ch == match;
+    else var ok = ch && match.test ? match.test(ch) : match(ch);
+    if (ok) {this.pos++; return ch;}
+  },
+  eatWhile: function(match) {
+    var start = this.pos;
+    while (this.eat(match));
+    if (this.pos > start) return this.string.slice(start, this.pos);
+  },
+  backUp: function(n) {this.pos -= n;},
+  column: function() {return this.pos;},
+  eatSpace: function() {
+    var start = this.pos;
+    while (/\s/.test(this.string.charAt(this.pos))) this.pos++;
+    return this.pos - start;
+  },
+  match: function(pattern, consume, caseInsensitive) {
+    if (typeof pattern == "string") {
+      function cased(str) {return caseInsensitive ? str.toLowerCase() : str;}
+      if (cased(this.string).indexOf(cased(pattern), this.pos) == this.pos) {
+        if (consume !== false) this.pos += str.length;
+        return true;
+      }
+    }
+    else {
+      var match = this.string.slice(this.pos).match(pattern);
+      if (match && consume !== false) this.pos += match[0].length;
+      return match;
+    }
+  }
+};</textarea>
+    <script>
+    </script>
+</div>
+<div class="run-btn">
+    <i class="fas fa-play-circle fa-5x"></i>
+</div>
+
+</body>
+
+</html>
